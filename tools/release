@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+    echo 'release <current> <next>'
+    echo 'release 1.0 1.1'
+    exit 0
+fi
+
+realpath() {
+    [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+DIR=$(realpath $(dirname $0))
+cd $(realpath $DIR/..)
+
+# exclude obsolete local tags, so that they are not re-created on server
+git fetch origin --prune +refs/tags/*:refs/tags/*
+
+find . -name 'pom.xml' -exec mvn -f {} versions:set -DnewVersion=$1 \;
+git commit -am "release version $1"
+mvn clean package || exit 1
+git tag $1 || exit 1
+
+find . -name 'pom.xml' -exec mvn -f {} versions:set -DnewVersion=$2-SNAPSHOT \;
+git commit -am "next version $2-SNAPSHOT"
+
+git push --tags

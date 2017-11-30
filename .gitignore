@@ -1,0 +1,10 @@
+*.iml
+.idea
+target
+runtime
+*.versionsBackup
+.DS_Store
+live-plugins/node_modules
+live-plugins/plugin-livebus/target
+dependency-reduced-pom.xml
+node_modules

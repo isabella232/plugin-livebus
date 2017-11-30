@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+realpath() {
+    [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+RUN=time
+if [ "$(type -t time)" != "keyword" ]; then
+    echo WARN: not running on bash
+    RUN="echo && time -p"
+fi
+TIMEFORMAT="%Es"
+
+DIR=$(realpath $(dirname $0))
+ROOT_DIR=$(realpath ${DIR}/..)
+cd ${ROOT_DIR}

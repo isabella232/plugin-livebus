@@ -1,0 +1,34 @@
+#!/bin/bash
+
+NVM_LOCAL_DIR=~/.nvm
+
+# if Mac OS:
+if hash brew 2>/dev/null; then
+    NVM_LOCAL_DIR=$(brew --prefix nvm)
+fi
+
+if [ ! -f ${NVM_LOCAL_DIR}/nvm.sh ]; then
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+fi
+
+if ! hash nvm 2>/dev/null; then
+    . ${NVM_LOCAL_DIR}/nvm.sh
+fi
+
+if ! nvm use 5.1.0; then
+    nvm install 5.1.0
+fi
+
+if ! hash webpack 2>/dev/null; then
+    npm install -g webpack
+fi
+if ! hash webpack-dev-server 2>/dev/null; then
+    npm install -g webpack-dev-server
+fi
+if ! hash bower 2>/dev/null; then
+    npm install -g bower
+fi
+if ! hash gulp 2>/dev/null; then
+    npm install -g gulp
+fi
+

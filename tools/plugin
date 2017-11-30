@@ -1,0 +1,33 @@
+#!/bin/bash
+
+. $(dirname $0)/toolheader
+. $(dirname $0)/nodeheader
+
+function join { local IFS="$1"; shift; echo "$*"; }
+
+if [ $# -eq 0 ]; then
+    PLUGINS=( live-plugins/plugin-* )
+else
+    PLUGINS=( "$@" )
+fi
+
+CPLUGINS=()
+for plugin in ${PLUGINS[@]}; do
+    plugin=${plugin%"/"}
+    CPLUGINS+=($plugin)
+done
+
+echo Building web code
+cd live-plugins
+npm install
+echo webpack $(join , "${CPLUGINS[@]}")
+LIVE_PLUGINS=$(join , "${CPLUGINS[@]}") webpack
+cd $(realpath $DIR/..)
+
+mvn -am -pl $(join , "${CPLUGINS[@]}") clean package -Dmaven.test.skip=true
+
+mkdir -p target
+for plugin in ${CPLUGINS[@]}; do
+    echo "Installing $(basename $plugin) JAR... "
+    cp $plugin/target/$(basename $plugin)*.jar target
+done

@@ -1,0 +1,31 @@
+$white:   #fff !default;
+$bg-body: #dddddd !default;
+
+$dark-icons:    #606a80 !default;
+$dark-bg:       #28334a !default;
+$darker-bg:     #172033 !default;
+
+$gray-darker:   lighten(#000, 20%) !default; // #333
+$gray-darker-bg:#c8ccd4 !default;
+$gray-dark:     lighten(#000, 40%) !default; // #666
+$gray-dark-bg:  #dddee1 !default;
+$gray:          #868695 !default;
+$gray-light:    lighten(#000, 87%) !default; // #dedede == #ddd
+$gray-lighter:  lighten(#000, 93.5%) !default; // #eee
+
+$brand-primary: #37A3EF !default;
+$brand-success: #5cb85c !default;
+$brand-info:    #5bc0de !default;
+$brand-warning: #f0ad4e !default;
+$brand-danger:  #D9534F !default;
+
+$text-color:    #364159;
+$text-primary:  #0078CB !default;
+$text-success:  #5cb85c !default;
+$text-info:     #5bc0de !default;
+$text-warning:  #FF8000 !default;
+$text-danger:   #D9534F !default;
+
+$blue-light:             rgba(0,163,235, 0.1) !default;
+$table-bg-hover:         $blue-light !default; // for hover
+
